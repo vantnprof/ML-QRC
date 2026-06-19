@@ -143,12 +143,25 @@ class RegressionMLP(nn.Module):
 
 
 class MLQRCRegressor(nn.Module):
-    def __init__(self, t_dim: int, n_dim: int, f_dim: int, d_t: int, d_n: int, d_f: int):
+    def __init__(
+        self,
+        t_dim: int,
+        n_dim: int,
+        f_dim: int,
+        d_t: int,
+        d_n: int,
+        d_f: int,
+        hidden_dim: int = 64,
+    ):
         super().__init__()
         self.u_t = nn.Parameter(torch.randn(d_t, t_dim) * 0.05)
         self.u_n = nn.Parameter(torch.randn(d_n, n_dim) * 0.05)
         self.u_f = nn.Parameter(torch.randn(d_f, f_dim) * 0.05)
-        self.head = nn.Linear(d_t * d_n * d_f, 1)
+        self.head = nn.Sequential(
+            nn.Linear(d_t * d_n * d_f, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1),
+        )
 
     def forward(self, x):
         y = torch.einsum("btnf,dt->bdnf", x, self.u_t)

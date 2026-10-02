@@ -1,8 +1,21 @@
-matplotlib
-numpy
-pandas
+# Python 3.11 runtime and notebook dependencies (not a version lockfile).
+
+# Quantum reservoir circuits and observable matrices
 pennylane
-scikit-learn
-scipy
+
+# Classical readouts and batched statevector simulation
 torch
+
+# Numerical methods, data analysis, baselines, and plotting
+numpy
+scipy
+pandas
+scikit-learn
+matplotlib
+
+# Interactive notebooks, display helpers, and command-line execution
 jupyter
+notebook
+ipykernel
+ipython
+nbconvert
